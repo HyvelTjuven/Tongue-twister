@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tongue twister</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel='stylesheet' href='pure-min.css'>
+  <link rel='stylesheet' href='base.css'>
+  <link rel='stylesheet' href='style.css'>
+</head>
+
+<body kattegat-livereload="true" touch-action="none">
+  <h1 id="level"></h1>
+  <p class="bold">Press the button and repeat the following sentence:</p>
+  <p class="sentence"></p>
+  <button id="startListeningButton">Start listening!</button>
+  <h2>Transcript</h2>
+  <section></section>
+
+<div id="hidden">
+  <aside>I'm listening...</aside>
+  <br>
+  <aside id="small" class="sentence"></aside>
+</div>
+  <img src="light.png" alt="" class="light">
+
+  <!-- Import libraries and our own script.js -->
+  <script src="libraries.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77818499-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

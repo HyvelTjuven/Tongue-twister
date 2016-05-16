@@ -1,0 +1,9 @@
+{
+  "firebase": "Tongue-twister",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
