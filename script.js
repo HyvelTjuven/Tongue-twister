@@ -69,6 +69,8 @@ $(document).ready(function() {
 
 // Handle the click event
 $('#startListeningButton').on('click', function(e) {
+$(document).ready(function(e) {
+
     lastClick = performance.now();
     // Calculate the difference, and round the number off
     var elapsedTime = Math.round(performance.now() - lastClick);
@@ -87,6 +89,8 @@ $('#startListeningButton').on('click', function(e) {
     // Keep track of the current time
 });
 
+})
+
 
 // User has clicked the "Listen" button
 function onClick() {
@@ -97,6 +101,13 @@ function onClick() {
 
     console.log("nmbrOfTries: " + nmbrOfTries);
     console.log("nmbrOfWrongAnswers: " + nmbrOfWrongAnswers);
+
+    ga('send', {
+            hitType: 'event',
+            eventCategory: 'buttons',
+            eventAction: "Level: " + level,
+            eventLabel: nmbrOfWrongAnswers,
+        });
 }
 
 // Recogniser has started listening for speech
