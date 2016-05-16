@@ -40,6 +40,7 @@ var commands = {
 
 // Initialise event handlers when document is ready
 $(document).ready(function() {
+
     $(".sentence").text(sentences[level - 1]);
     $("#level").text("Level " + level + "/10");
 
