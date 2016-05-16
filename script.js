@@ -1,6 +1,6 @@
 // Initialise variable for keeping track of the recognition engine
 var recognition = null;
-var level = 10;
+var level = 1;
 var nmbrOfWrongAnswers = 0;
 var nmbrOfTries = 0;
 
@@ -69,23 +69,23 @@ $(document).ready(function() {
 
 // Handle the click event
 $('#startListeningButton').on('click', function(e) {
+    lastClick = performance.now();
     // Calculate the difference, and round the number off
-    var elapsedTime = Math.round(performance.now()- lastClick);
+    var elapsedTime = Math.round(performance.now() - lastClick);
 
     // Print it out for our own testing:
     console.log("Elapsed time: " + elapsedTime);
 
     // Send to GA
     ga('send', {
-      hitType: 'timing',
-      timingCategory: 'Listen Button',
-      timingVar: 'Clicked',
-      timingValue: elapsedTime
+        hitType: 'timing',
+        timingCategory: 'Listen Button',
+        timingVar: 'Clicked',
+        timingValue: elapsedTime
     });
 
     // Keep track of the current time
-    lastClick = performance.now();
-})
+});
 
 
 // User has clicked the "Listen" button
@@ -225,20 +225,19 @@ function level9() {
 function level10() {
     if (level == 10) {
         $("#level").text("You won!").fadeIn();
-        $("#level").css({'color': '#0ACC31', 'font-size': '60px'});
-        $(".bold").css({'font-size': '140%'});
+        $("#level").css('color', '#0ACC31');
         $(".bold").text("Here are your results:").fadeIn();
         $(".sentence").text("Total number of tries: " + nmbrOfTries).fadeIn();
         $(".sentence").append("<br>Number of wrong answers: " + nmbrOfWrongAnswers).fadeIn();
-        $(".sentence").append("<br>Ratio: " + (nmbrOfWrongAnswers/nmbrOfTries * 100) + "%").fadeIn();
+        $(".sentence").append("<br>Ratio: " + Math.round(nmbrOfWrongAnswers / nmbrOfTries * 100) + "%").fadeIn();
         $("#startListeningButton").hide();
         //congratulations();
     }
 }
 
 function congratulations() {
-        //$(".sentence").text(sentences[level-1]);
-        $('body').append('<iframe width="560" height="315" src="https://www.youtube.com/embed/1Bix44C1EzY?autoplay=1" frameborder="0" allowfullscreen></iframe>');
+    //$(".sentence").text(sentences[level-1]);
+    $('body').append('<iframe width="560" height="315" src="https://www.youtube.com/embed/1Bix44C1EzY?autoplay=1" frameborder="0" allowfullscreen></iframe>');
 }
 
 // Triggered when the person says "dance time"
