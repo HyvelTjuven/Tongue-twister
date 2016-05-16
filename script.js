@@ -66,6 +66,28 @@ $(document).ready(function() {
     })
 });
 
+
+// Handle the click event
+$('#startListeningButton').on('click', function(e) {
+    // Calculate the difference, and round the number off
+    var elapsedTime = Math.round(performance.now()- lastClick);
+
+    // Print it out for our own testing:
+    console.log("Elapsed time: " + elapsedTime);
+
+    // Send to GA
+    ga('send', {
+      hitType: 'timing',
+      timingCategory: 'Listen Button',
+      timingVar: 'Clicked',
+      timingValue: elapsedTime
+    });
+
+    // Keep track of the current time
+    lastClick = performance.now();
+})
+
+
 // User has clicked the "Listen" button
 function onClick() {
     // Start recogniser
