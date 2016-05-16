@@ -3,6 +3,7 @@ var recognition = null;
 var level = 1;
 var nmbrOfWrongAnswers = 0;
 var nmbrOfTries = 0;
+var ratio;
 
 var sentences = [
     "How much wood would a woodchuck chuck if a woodchuck could chuck wood",
@@ -21,7 +22,6 @@ var sentences = [
 // Keys are the trigger phrases, and the values are functions to execute for a phrase
 var commands = {
     'how much wood would a woodchuck chuck if a woodchuck could chuck wood': level1,
-    'hello': level1,
     'i wish to wash my irish wristwatch': level2,
     'he threw three free throws': level3,
     'nine nice night nurses nursing nicely': level4,
@@ -32,6 +32,7 @@ var commands = {
     'if two witches would watch two watches which witch would watch which watch': level9,
     'the 33 thieves thought that they thrilled the throne throughout thursday': level10,
     'the thirty-three thieves thought that they thrilled the throne throughout thursday': level10,
+    'the thirty three thieves thought that they thrilled the throne throughout thursday': level10,
     'hello': level10,
 
     'dance time': onRandom
@@ -56,17 +57,9 @@ $(document).ready(function() {
     // Wire up event when user clicks listen button
     $('#startListeningButton').on('click', onClick);
 
-    $('#startListeningButton').on('click', function(e) {
-        ga('send', {
-            hitType: 'event',
-            eventCategory: 'buttons',
-            eventAction: "Level: " + level,
-            eventLabel: 'Listen button clicked'
-        });
-    })
 });
 
-
+/*
 // Handle the click event
 $('#startListeningButton').on('click', function(e) {
 $(document).ready(function(e) {
@@ -90,7 +83,7 @@ $(document).ready(function(e) {
 });
 
 })
-
+*/
 
 // User has clicked the "Listen" button
 function onClick() {
@@ -101,13 +94,6 @@ function onClick() {
 
     console.log("nmbrOfTries: " + nmbrOfTries);
     console.log("nmbrOfWrongAnswers: " + nmbrOfWrongAnswers);
-
-    ga('send', {
-            hitType: 'event',
-            eventCategory: 'buttons',
-            eventAction: "Level: " + level,
-            eventLabel: nmbrOfWrongAnswers,
-        });
 }
 
 // Recogniser has started listening for speech
@@ -122,6 +108,7 @@ function onEnd() {
     console.log('Stopped listening');
 
     $('#hidden').fadeOut(); // Hide status
+
 }
 
 // When we have a match from the voice-recognition engine
@@ -138,6 +125,16 @@ function onResult(e) {
             // Get the transcript of the text
             var text = result[0].transcript;
             text = text.toLowerCase();
+
+            ratio = nmbrOfWrongAnswers / nmbrOfTries;
+            ratio = Math.round((1 - ratio) * 100);
+
+            ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'Done listening',
+                    eventAction: 'Level: ' + level + ', TotalTries: ' + nmbrOfTries + ', WrongAnsw: ' + nmbrOfWrongAnswers + ", Ratio: " + ratio + "%",
+                    eventLabel: text,
+                });
 
             // Look up the same text in our little 'commands' dictionary
             if (commands[text]) {
@@ -235,12 +232,12 @@ function level9() {
 
 function level10() {
     if (level == 10) {
-        $("#level").text("You won!").fadeIn();
+        $("#level").text("You won!");
         $("#level").css('color', '#0ACC31');
-        $(".bold").text("Here are your results:").fadeIn();
-        $(".sentence").text("Total number of tries: " + nmbrOfTries).fadeIn();
-        $(".sentence").append("<br>Number of wrong answers: " + nmbrOfWrongAnswers).fadeIn();
-        $(".sentence").append("<br>Ratio: " + Math.round(nmbrOfWrongAnswers / nmbrOfTries * 100) + "%").fadeIn();
+        $(".bold").text("Here are your results:");
+        $(".sentence").text("Total number of tries: " + nmbrOfTries);
+        $(".sentence").append("<br>Number of wrong answers: " + nmbrOfWrongAnswers);
+        $(".sentence").append("<br>Ratio: " + ratio + "% correct");
         $("#startListeningButton").hide();
         //congratulations();
     }
