@@ -224,10 +224,13 @@ function level9() {
 
 function level10() {
     if (level == 10) {
-        $("#level").text("CONGRATULATIONS!").fadeIn();
-        $(".bold").text("You did it, here are your results:").fadeIn();
+        $("#level").text("You won!").fadeIn();
+        $("#level").css({'color': '#0ACC31', 'font-size': '60px'});
+        $(".bold").css({'font-size': '140%'});
+        $(".bold").text("Here are your results:").fadeIn();
         $(".sentence").text("Total number of tries: " + nmbrOfTries).fadeIn();
         $(".sentence").append("<br>Number of wrong answers: " + nmbrOfWrongAnswers).fadeIn();
+        $(".sentence").append("<br>Ratio: " + (nmbrOfWrongAnswers/nmbrOfTries * 100) + "%").fadeIn();
         $("#startListeningButton").hide();
         //congratulations();
     }
