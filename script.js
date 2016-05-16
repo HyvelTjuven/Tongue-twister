@@ -1,18 +1,20 @@
 // Initialise variable for keeping track of the recognition engine
 var recognition = null;
-var level = 1;
-var levelString = 'hello';
+var level = 10;
+var nmbrOfWrongAnswers = 0;
+var nmbrOfTries = 0;
+
 var sentences = [
-  "How much wood would a woodchuck chuck if a woodchuck could chuck wood",
-  "I wish to wash my Irish wristwatch",
-  "He threw three free throws",
-  "Nine nice night nurses nursing nicely",
-  "I saw Susie sitting in a shoe shine shop",
-  "I scream, you scream, we all scream for ice cream",
-  "She sells sea-shells on the sea-shore, the shells she sells are sea-shells, I'm sure",
-  "Picky people pick Peter Pan Peanut-Butter, it's the peanut-butter picky people pick",
-  "If two witches would watch two watches, which witch would watch which watch?",
-  "The 33 thieves thought that they thrilled the throne throughout Thursday"
+    "How much wood would a woodchuck chuck if a woodchuck could chuck wood",
+    "I wish to wash my Irish wristwatch",
+    "He threw three free throws",
+    "Nine nice night nurses nursing nicely",
+    "I saw Susie sitting in a shoe shine shop",
+    "I scream, you scream, we all scream for ice cream",
+    "She sells sea-shells on the sea-shore, the shells she sells are sea-shells, I'm sure",
+    "Picky people pick Peter Pan Peanut-Butter, it's the peanut-butter picky people pick",
+    "If two witches would watch two watches, which witch would watch which watch?",
+    "The 33 thieves thought that they thrilled the throne throughout Thursday"
 ]
 
 // A simple system for responding to speech.
@@ -30,13 +32,14 @@ var commands = {
     'if two witches would watch two watches which witch would watch which watch': level9,
     'the 33 thieves thought that they thrilled the throne throughout thursday': level10,
     'the thirty-three thieves thought that they thrilled the throne throughout thursday': level10,
+    'hello': level10,
 
     'dance time': onRandom
 };
 
 // Initialise event handlers when document is ready
 $(document).ready(function() {
-    $(".sentence").text(sentences[level-1]);
+    $(".sentence").text(sentences[level - 1]);
     $("#level").text("Level " + level + "/10");
 
     // Initialise speech recogniser
@@ -55,10 +58,10 @@ $(document).ready(function() {
 
     $('#startListeningButton').on('click', function(e) {
         ga('send', {
-          hitType: 'event',
-          eventCategory: 'buttons',
-          eventAction: "Level: " + level,
-          eventLabel: 'Listen button clicked'
+            hitType: 'event',
+            eventCategory: 'buttons',
+            eventAction: "Level: " + level,
+            eventLabel: 'Listen button clicked'
         });
     })
 });
@@ -68,6 +71,10 @@ function onClick() {
     // Start recogniser
     recognition.start();
     console.log(level);
+    nmbrOfTries = nmbrOfTries + 1;
+
+    console.log("nmbrOfTries: " + nmbrOfTries);
+    console.log("nmbrOfWrongAnswers: " + nmbrOfWrongAnswers);
 }
 
 // Recogniser has started listening for speech
@@ -107,6 +114,8 @@ function onResult(e) {
                 // ...and execute corresponding function
                 commands[text].call();
             } else {
+
+                nmbrOfWrongAnswers = nmbrOfWrongAnswers + 1;
                 // Text is unknown, add it to the transcription panel in red
                 $('section').prepend('<div class="red">' + text + '</div>');
             }
@@ -116,86 +125,95 @@ function onResult(e) {
 
 // Triggered when person says "lights on"
 function level1() {
-  //Woodchuck
-  if (level == 1){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    //Woodchuck
+    if (level == 1) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level2() {
-  //Irish wristwatch
-  if (level == 2){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    //Irish wristwatch
+    if (level == 2) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level3() {
-  //Three free throws
-  if (level == 3){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    //Three free throws
+    if (level == 3) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level4() {
-  //33 theives
-  if (level == 4){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    //33 theives
+    if (level == 4) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level5() {
-  if (level == 5){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    if (level == 5) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level6() {
-  if (level == 6){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    if (level == 6) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level7() {
-  if (level == 7){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    if (level == 7) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level8() {
-  if (level == 8){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    if (level == 8) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level9() {
-  if (level == 9){
-    level = level + 1;
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    if (level == 9) {
+        level = level + 1;
+        $(".sentence").text(sentences[level - 1]);
+        $("#level").text("Level " + level + "/10");
+    }
 }
 
 function level10() {
-  if (level == 10){
-    $(".sentence").text(sentences[level-1]);
-    $("#level").text("Level " + level + "/10");
-  }
+    if (level == 10) {
+        $("#level").text("CONGRATULATIONS!").fadeIn();
+        $(".bold").text("You did it, here are your results:").fadeIn();
+        $(".sentence").text("Total number of tries: " + nmbrOfTries).fadeIn();
+        $(".sentence").append("<br>Number of wrong answers: " + nmbrOfWrongAnswers).fadeIn();
+        $("#startListeningButton").hide();
+        //congratulations();
+    }
+}
+
+function congratulations() {
+        //$(".sentence").text(sentences[level-1]);
+        $('body').append('<iframe width="560" height="315" src="https://www.youtube.com/embed/1Bix44C1EzY?autoplay=1" frameborder="0" allowfullscreen></iframe>');
 }
 
 // Triggered when the person says "dance time"
